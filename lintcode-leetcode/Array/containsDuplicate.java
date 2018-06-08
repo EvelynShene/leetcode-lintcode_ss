@@ -35,7 +35,17 @@ public boolean containsDuplicate(int[] nums) {
 /* Note: 若循环从0开始做 nums[i] = nums[i+1] 判断，则可能数组越界 */
 
 
-/** Method 3: Use Set (from Leetcode Discussion)
+/** Method 3: Use HashSet (from Leetcode Discussion)
   * Time complexity is O(N), but Memory = O(N)
   */
-
+public boolean containsDuplicate(int[] nums) {
+    HashSet<Integer> set= new HashSet<Integer>();
+    for(int i=0;i<nums.length;i++){
+        if(set.contains(nums[i])){
+            return true;
+        }else{
+            set.add(nums[i]);
+        }
+    }
+    return false;
+}
