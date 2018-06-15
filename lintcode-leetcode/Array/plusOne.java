@@ -30,7 +30,10 @@
 //在leetcode，若数组很大，转换sum时就会溢出为负数，代码报错
 
 
-//Method 2(from Leetcode)
+/* Method 2(from Leetcode)
+ *   The 1 is added in front only if all digits are 9. For example 999 + 1 = 1000. 
+ *   If not all are 9s, then the new (num+1) will be "returned" somewhere in the for loop and no 1 will be added anymore.
+ */
 public int[] plusOne(int[] digits) {       
     int n = digits.length;
     for(int i=n-1; i>=0; i--) {
