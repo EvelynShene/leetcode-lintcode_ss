@@ -3,7 +3,7 @@
  *    and return its sum. Do it in time complexity O(n).
  */
 
-//只考虑前面的连续数集的和是不是负数即可： sum + negative num < sum
+//只考虑前面的连续数集的和是不是负数即可： sum + negative num < negative num
 public class maximumSubarray {
     /**
      * @param nums: A list of integers
