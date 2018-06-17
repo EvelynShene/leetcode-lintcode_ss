@@ -20,7 +20,9 @@
       return maxArea;
   }
   
-  //Method 2: 
+  //Method 2: 双指针法，每次都移动左右指针中较短的哪一根，此方法能保证最大容量一定会被遍历到，因此会被记录下来。
+  //证明过程：https://segmentfault.com/a/1190000008824222
+
     public int maxArea(int[] height) {
         int maxarea = 0, l = 0, r = height.length - 1;
         while (l < r) {
