@@ -16,17 +16,17 @@
  *  at least one of the numbers is duplicated.
  */
  
- /* When this problem appears in a technical interview and no such strict limitation. 
-  * As an interviewer, you can use two other methods.
-  *   1) First sort this array, and then any duplicate numbers will be adjacent in the sorted array. (T = O(nlgn))
-  *   2) Use HashMap or HashSet to find the duplicate number. (Time complexity = O(n); Space complexity = O(n))
-  */
+/* When this problem appears in a technical interview and no such strict limitation. 
+ * As an interviewer, you can use two other methods.
+ *   1) First sort this array, and then any duplicate numbers will be adjacent in the sorted array. (T = O(nlgn))
+ *   2) Use HashMap or HashSet to find the duplicate number. (Time complexity = O(n); Space complexity = O(n))
+ */
  
  /* Method 1: Pigeonhole principle(鸽巢原理) + Binary Search
   *    Each integer is between 1 and n (inclusive). For each middle number mid: 
   *      if the number of numbers that less than mid is larger than mid, the duplicate number must between [1,mid].
   *    So to find the the duplicate number in [1,n] can be divided to find duplicate number in [1,n/2] and [n/2,n].
-  *／
+  */
   public int findDuplicate(int[] nums) {
       // write your code here
       int l = 1, r = nums.length-1;
