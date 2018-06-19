@@ -56,5 +56,65 @@
         }
     }
 }
-//Method 2: 
+
+//Method 2: Fixed the first number a, and then use two pointers method in 3Sum problem. (O(n^3))
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(nums == null || nums.length < 4){
+            return res;
+        }
+        
+        Arrays.sort(nums);
+        List<Integer> quadr = new ArrayList<Integer>();
+        for(int i = 0; i < nums.length; i++){
+            quadr.add(nums[i]);
+            threeSum(nums, res, quadr, i+1, target - nums[i]);
+            quadr.remove(quadr.size()-1);
+            while(i+1 < nums.length && nums[i] == nums[i+1]){
+                i++;
+            }
+        }
+        
+        return res;
+    }
+    
+    public void threeSum(int[] numbers, List<List<Integer>> res, List<Integer> q,int index, int target){      
+        for(int i = index; i < numbers.length; i++){
+            q.add(numbers[i]); // quadr[1]
+            int two_num_target = target - numbers[i];
+            int l = i+1;
+            int r = numbers.length-1;
+            while(l < r){
+                if(numbers[l] + numbers[r] == two_num_target){
+                    q.add(numbers[l]);
+                    q.add(numbers[r]);
+                    res.add(new ArrayList<Integer>(q));
+                    q.remove(q.size()-1);
+                    q.remove(q.size()-1);
+                    l++;
+                    r--;
+                    while(l < numbers.length && numbers[l] == numbers[l-1]){
+                        l++;
+                    }
+                    while(r >= 0 && numbers[r] == numbers[r+1]){
+                        r--;
+                    }
+                }
+                else if(numbers[l] + numbers[r] > two_num_target){
+                    r--;
+                    // while(r >= 0 && numbers[r] == numbers[r+1]){r--;}
+                }
+                else{
+                    l++;
+                    // while(l < numbers.length && numbers[l] == numbers[l-1]){l++;}     
+                }    
+            }
+            q.remove(q.size()-1);
+            while(i+1 < numbers.length && numbers[i] == numbers[i+1]){
+                i++;
+            }
+        }
+    }    
+}
  
