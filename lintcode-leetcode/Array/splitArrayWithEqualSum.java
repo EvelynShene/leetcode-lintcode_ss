@@ -14,7 +14,8 @@
  *                     sum(j + 1, k - 1) = sum(4, 4) = 1
  *                     sum(k + 1, n - 1) = sum(6, 6) = 1
  */
- 
+
+//My Method: 
   public boolean splitArray(List<Integer> nums) {
       // write your code here
       if(nums == null || nums.size() < 7){
@@ -43,5 +44,38 @@
               }
           }
       }
+      return false;
+  }
+
+//Method 2: O(n^2) (From leetcode)
+ public boolean splitArray(List<Integer> nums) {
+      // write your code here
+      if(nums == null || nums.size() < 6){
+          return false;
+      }
+      // sum[i] = sum(0,i-1)
+      int[] sum = new int[nums.size() + 1];
+      sum[0] = 0;
+      for(int i = 1; i < sum.length; i++){
+          sum[i] = sum[i - 1] + nums.get(i - 1);
+      }
+      for(int j = 3; j < nums.size() - 3; j++){ //从中间数j开始查看
+          Set<Integer> set = new HashSet<>(); //每一个j对应一个全新的set
+          for(int i = 1; i < j - 1; i++){ //先查看i
+              if(sum[i] == sum[j] - sum[i + 1]){ // (sum[j] - sum[i + 1] = sum(i+1,j-1)) == sum(0,i-1) 判断
+                  if(!set.contains(sum[i])) // 满足要求的i的对应和值sum(0,i-1)加入set中，用于后面与k得到的和值比较
+                  set.add(sum[i]);
+              }
+          }
+
+          for(int k = j + 2; k < nums.size() - 1; k++){ //查看k
+              if(sum[k] - sum[j + 1] == sum[nums.size()] - sum[k + 1]){// sum(j + 1, k - 1) == sum(k + 1, n - 1) 判断
+                  if(set.contains(sum[k] - sum[j + 1])){ //同一个j值下，有满足要求的等值
+                      return true;
+                  }
+              }
+          }
+      }
+
       return false;
   }
