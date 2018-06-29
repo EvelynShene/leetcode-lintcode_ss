@@ -18,6 +18,8 @@
  *                         添加第二行：[0, 1, 0, 0, 1] => [0, 2, 0, 0, 2] 
  *                    (第2行第1列是0，所以第1行第1列的1不会掉下来形成直方图，但是它对它本行以及它之前的行产生的影响在前一行已经计算过了)
  *                    。。。（依此类推，最后得到最大方形面积也就是1能形成的最大方形）
+ *     复杂度：空间复杂度是 O(n^2); 
+ *            平均时间复杂度是 O(n^2), 最坏时间复杂度是 O(n^3) （决定于maximalRectangleinHistogram的复杂度）
  */
 class Solution {
     public int maximalRectangle(char[][] matrix) {
@@ -69,6 +71,5 @@ class Solution {
             max = Math.max(max,m[i]*(right[i] - left[i] - 1));
         }
         return max;
-    }
-    
+    }   
 }
