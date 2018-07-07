@@ -61,19 +61,25 @@
     return num;
  }
  
- //More concise code from leetcode solution
- class Solution {
-    public int countBinarySubstrings(String s) {
-        int ans = 0, prev = 0, cur = 1;
-        for (int i = 1; i < s.length(); i++) {
-            if (s.charAt(i-1) != s.charAt(i)) {
-                ans += Math.min(prev, cur);
-                prev = cur;
-                cur = 1;
-            } else {
-                cur++;
-            }
-        }
-        return ans + Math.min(prev, cur);
-    }
-}
+ //More concise code
+ public int countBinarySubstrings(String s) {
+     if(s == null || s.length() == 0){
+         return 0;
+     }
+     int num = 0;
+     int prev = 0;
+     int change = 0;
+     for(int i = 1; i < s.length(); i++){
+         if(s.charAt(i) != s.charAt(i-1)){
+             if(prev != change){
+                 num += Math.min(change - prev, i - change);
+                 prev = change;
+             }
+             change = i;
+         }
+     }
+     if(prev != change){
+         num += Math.min(change - prev, s.length() - change);
+     }
+     return num;
+ }
