@@ -14,6 +14,11 @@
  */
  
  //Method 1: 方法同NextPermutationII
+ /** 分析： [6 5 4 8 7 5 1]
+  *   从后往前，找到第一个排列递增的位置，如[4,8]；
+  *   从8开始找大于4的最小数，如5；将[4]、[5]位置交换（[6 5 5 8 7 4 1]）
+  *   再将8开始之后的数组反转排列，即可得到“下一个”排列
+  */
  class Solution {
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> list = new ArrayList<List<Integer>>();
