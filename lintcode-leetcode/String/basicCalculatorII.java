@@ -11,7 +11,7 @@
  *             3) " 3+5 / 2 " = 5
  */
  
- //My Method:  Use stack
+ //My Method:  Use stack - 时间复杂度O(N), 空间复杂度O(N)
  public int calculate(String s) {
     if(s == null || s.length() == 0){
         return 0;
@@ -79,7 +79,10 @@
     return res;
  }
  
- //Method 2: [Idea from leetcode discuss]
+ /* Method 2: [Idea from leetcode discuss]
+  *     如果遇到‘+’，那么把+num入栈。如果是‘-’,那么把‘-num'入栈。
+  *     如果是’/'或‘*’,那么把栈顶元素弹出除以或者乘以当前的num然后再次入栈。
+  */
  public int calculate(String s) {
     if(s == null || s.length() == 0){
         return 0;
