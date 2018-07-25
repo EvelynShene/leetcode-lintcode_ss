@@ -44,13 +44,13 @@
           if(words[i].equals(word1)){
               index1 = i;
               if(index2 != -1){
-                  distance = Math.min(distance, Math.abs(index1 - index2));
+                  distance = Math.min(distance, index1 - index2);
               }
           }
           else if(words[i].equals(word2)){
               index2 = i;
               if(index1 != -1){
-                  distance = Math.min(distance, Math.abs(index1 - index2));
+                  distance = Math.min(distance, index2 - index1);
               }
           }
       }
