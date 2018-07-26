@@ -1,4 +1,4 @@
-/** 393. Best Time to Buy and Sell Stock with Cooldown(lintcode) 
+/** 995. Best Time to Buy and Sell Stock with Cooldown(lintcode) 
  *                                    /309. Best Time to Buy and Sell Stock with Cooldown(leetcode)
  *     Say you have an array for which the ith element is the price of a given stock on day i.
  *  Design an algorithm to find the maximum profit. You may complete as many transactions as you like 
