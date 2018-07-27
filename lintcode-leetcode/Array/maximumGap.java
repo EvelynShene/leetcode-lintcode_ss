@@ -73,6 +73,66 @@
     return max;
  }
  
- //Method 3: 桶排序
- 
- 
+ /* Method 3: 桶排序 - 举例说明：nums[] = {1,8,7,9,5}.
+  *   1) 先找到数组nums中的最大值max_val和最小值min_val。由最大最小值求桶bucket的大小，桶的大小是最小的最大差值。
+  *    Q:如何求最小的最大差值呢？因为一共由n个数，如果这n个数排序后是等差数列，那么他们的公差值就等于(max - min)/(n-1)；
+  * 如果不是等差数列排列，假设排序后(数组是n)，第i个数n[i]不满足等差数列且它离n[i-1]更近，那么它离n[i+1]更远，
+  * 这时的最大距离max_gap > 原来等差数列的公差，所以说最小的最大差值是当数组成等差数列时的公差(max - min)/(n-1)。
+  * 考虑到公差(max - min)/(n-1)可能是小数，取上整，因为要使得桶的个数是n-1个。
+  *   2) 对于每一个桶i，记录桶内的最大值bucket[i].max 和桶内最小值bucket[i].min。这样一来，所求的最大距离max_gap为：
+  *       max_gap = 当前有效桶i的bucket[i].min - 紧邻的前一个有效桶j的bucket[j].max。
+  *    【有效桶是指数组中有元素分配到该桶中】
+  *
+  *   3) 对与数nums[i]属于那个桶，用公式(nums[i] - min_val)/bucket_size。其中：
+  *     a) min_val会分配到第1号桶；max_val会分配到第n-1号桶。
+  *     b) 对于其他的数，每个桶的包含关系是[i,i+bucket_size),[i+bucket_size,i+2*bucket_size) ...
+  */
+ public int maximumGap(int[] nums) {
+     if(nums == null || nums.length < 2){
+         return 0;
+     }
+     int n = nums.length;
+     int max_val = nums[0];
+     int min_val = nums[0];
+     for(int i = 1; i < n; i++){
+         max_val = Math.max(max_val, nums[i]);
+         min_val = Math.min(min_val, nums[i]);
+     }
+     if(n-1 == 1){
+         return max_val - min_val;
+     }
+
+     int bucket_size = (max_val - min_val) / (n - 1) + 1;
+     int[] bucket = new int[n-1];
+     int[] bucket_min = new int[n-1];
+     int[] bucket_max = new int[n-1];
+     Arrays.fill(bucket_min, Integer.MAX_VALUE);
+     Arrays.fill(bucket_max, Integer.MIN_VALUE);
+
+     for(int i = 0; i < n; i++){
+         int belong = (nums[i] - min_val) / bucket_size;
+         bucket[belong]++;
+         bucket_min[belong] = Math.min(bucket_min[belong],nums[i]);
+         bucket_max[belong] = Math.max(bucket_max[belong],nums[i]);
+     }
+
+     int max = 0;
+     int i = 0;
+     int j = 1;
+     while(i < n-1 && j < n-1){
+         if(bucket[i] != 0 && bucket[j] != 0){
+             max = Math.max(max,bucket_min[j] - bucket_max[i]);
+             i = j;
+             j = i+1;
+         }
+         else if(bucket[i] == 0){
+             i++;
+             j++;
+         }
+         else if(bucket[j] == 0){
+             j++;
+         }
+     }
+     return max;
+ }
+
