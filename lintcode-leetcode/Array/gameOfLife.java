@@ -63,3 +63,51 @@
         System.arraycopy(newboard[i],0,board[i],0,n);
     }
  }
+
+//Method 2: Solve it in-place
+public void gameOfLife(int[][] board) {
+     int m = board.length;
+     int n = board[0].length;
+     int[] detax = {-1,-1,-1,0,0,1,1,1};
+     int[] detay = {-1,0,1,-1,1,-1,0,1};
+
+     for(int i = 0; i < m; i++){
+         for(int j = 0; j < n; j++){
+             int round = 0;
+             for(int k = 0; k < 8; k++){
+                 if(i+detax[k] < m && i+detax[k] >=0 && j+detay[k] < n && j+detay[k] >= 0){
+                     if(board[i+detax[k]][j+detay[k]] == 2){
+                         continue;
+                     }
+                     else if(board[i+detax[k]][j+detay[k]] == -1){
+                         round += 1;
+                     }
+                     else{
+                         round += board[i+detax[k]][j+detay[k]];
+                     }
+                 }
+             }
+             if(board[i][j] == 0 && round == 3)//0 -> 1 : 2
+                 board[i][j] = 2;
+             else if(board[i][j] == 1 && round >= 2 && round <= 3){// 1 -> 1
+                 board[i][j] = 1;
+             }
+             else{
+                 if(board[i][j] == 1)//1 -> 0
+                     board[i][j] = -1;
+                 else // 0 -> 0
+                     board[i][j] = 0;
+             }
+         }
+     }
+     for(int i = 0; i < m; i++){
+         for(int j = 0; j < n; j++){
+             if(board[i][j] == -1){
+                 board[i][j] = 0;
+             }
+             else if(board[i][j] == 2){
+                 board[i][j] = 1;
+             }
+         }
+     }
+ }
