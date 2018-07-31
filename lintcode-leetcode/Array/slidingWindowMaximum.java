@@ -1,4 +1,4 @@
-/** 239. Sliding Window Maximum(leetcode)
+/** 362. Sliding Window Maximum(lintcode) / 239. Sliding Window Maximum(leetcode)
  *      Given an array nums, there is a sliding window of size k which is moving from the very left of the array 
  *  to the very right. You can only see the k numbers in the window. Each time the sliding window moves right by 
  *  one position. Return the max sliding window.
@@ -19,7 +19,8 @@
  *      Follow up: Could you solve it in linear time?
  */
  
- /* My Method: Use PriorityQueue(最大堆) - O(nlogn) time and O(max(k,n-k+1)) space complexity
+ /* My Method: Use PriorityQueue(最大堆) - O(nlogn) time and O(max(k,n-k+1)) space complexity 
+  * [AC in leetcode but TLE in lintcode]
   *   1) remove()方法和add()方法时间复杂度为O(logn)，
   *   2) remove(Object obj)和contains()方法需要O(n)时间复杂度，
   *   3) 取队头则需要O(1)时间
