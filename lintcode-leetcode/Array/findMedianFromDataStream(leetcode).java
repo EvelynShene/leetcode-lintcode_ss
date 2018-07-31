@@ -46,3 +46,39 @@
  * obj.addNum(num);
  * double param_2 = obj.findMedian();
  */
+
+/* Method 2: Use Two Heap - O(logn) time complexity
+ *   1）用一个最大堆记录前一半数组，则root处就是前一半数的最大值
+ *   2）用一个最小堆记录后一半数组，则root处就是后一半数的最小值
+ *   3）Median的值就由这两个堆的root决定
+ *  【每次加入新数字的时候，先加入最大堆中，然后在最大堆中取出root值加入最小堆(最大堆中最大值加入最小堆)；
+ *    再平衡两个堆的大小，保证最大堆的数 -- 要么比最小堆多一个，要么相等。】
+ *／
+class MedianFinder {
+    PriorityQueue<Integer> max_half; 
+    PriorityQueue<Integer> min_half;
+    /** initialize your data structure here. */
+    public MedianFinder() {
+        min_half = new PriorityQueue<Integer>();
+        max_half = new PriorityQueue<Integer>(1000, new Comparator<Integer>(){
+            public int compare(Integer t1, Integer t2){
+                return t2 - t1;
+            }
+        });
+    } 
+    
+    public void addNum(int num) {
+        max_half.offer(num);
+        min_half.offer(max_half.poll());
+        if(min_half.size() > max_half.size()){
+            max_half.offer(min_half.poll());
+        }
+    }
+    
+    public double findMedian() {
+        if(max_half.size() == min_half.size())
+            return ((double)max_half.peek()+min_half.peek()) / 2;
+        else
+            return max_half.peek();
+    }
+}
