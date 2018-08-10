@@ -21,3 +21,14 @@ public boolean isPowerOfTwo(int n) {
     }
     return true;
 }
+
+/* Method 2: 
+ *     用二进制数的性质，如果是2的幂次方，那么用二进制表示时，除了最高位为1，其他位均为0；
+ *     技巧：如果 n = 1000..00, 那么 n - 1 = 0111..11; 那么 n & (n - 1) == 0。
+ */
+ public boolean isPowerOfTwo(int n) {
+    if(n <= 0){
+        return false;
+    }
+    return (n & (n - 1)) == 0;// &的优先级比“==”小，要用括号
+ }
