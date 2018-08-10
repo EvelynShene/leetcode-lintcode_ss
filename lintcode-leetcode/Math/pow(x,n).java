@@ -82,4 +82,34 @@
     return res;
  }
  
- //Method 4: 迭代
+ //Method 4: 迭代 - 最慢
+public double myPow(double x, int n) {
+     if(n == 0){
+         return 1;
+     }
+     boolean min = false;
+     if(n < 0){
+         if(n == Integer.MIN_VALUE){
+             n = -(n+1);
+             min = true;
+         }
+         else{
+             n = -n;
+         }
+         x = 1 / x;  
+     }
+     double tmp = x;
+     double res = 1;
+     while(n > 0){
+         if(n % 2 != 0){
+             res *= x;
+         }
+         x *= x;
+         n /= 2;
+     }
+
+     if(min){
+         res = res * tmp;
+     }
+     return res;
+ }
