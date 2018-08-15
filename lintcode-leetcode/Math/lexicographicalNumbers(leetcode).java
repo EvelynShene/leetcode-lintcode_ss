@@ -48,26 +48,30 @@
   *            1        2        3    ...
   *           /\        /\       /\
   *        10 ...19  20...29  30...39   ....
+  *        /\        /\       /\
+  *     101..109  201..209 301..309   ....
   */
- public class Solution {
+class Solution {
     public List<Integer> lexicalOrder(int n) {
-        List<Integer> res = new ArrayList<>();
-        for(int i=1;i<10;++i){
-          dfs(i, n, res); 
+        List<Integer> list = new ArrayList<Integer>();
+        for(int i = 1; i <= 9; i++){
+            if(i > n){
+                break;
+            }
+            list.add(i);
+            dfs(list, i*10, n);
         }
-        return res;
+        return list;
     }
     
-    public void dfs(int cur, int n, List<Integer> res){
-        if(cur>n)
-            return;
-        else{
-            res.add(cur);
-            for(int i=0;i<10;++i){
-                if(10*cur+i>n)
-                    return;
-                dfs(10*cur+i, n, res);
+    public void dfs(List<Integer> list, int base, int n){
+        for(int i = 0; i < 10; i++){
+            int num = base + i;
+            if(num > n){
+                break;
             }
+            list.add(num);
+            dfs(list, num*10, n);
         }
     }
 }
