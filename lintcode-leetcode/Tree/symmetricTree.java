@@ -53,3 +53,37 @@ class Solution {
 }
 
 //Method 2: Iterative
+public boolean isSymmetric(TreeNode root) {
+    if(root == null){
+        return true;
+    }
+    if(root.left == null && root.right == null){
+        return true;
+    }
+    if(root.left == null || root.right == null){
+        return false;
+    }
+    Stack<TreeNode> s = new Stack<TreeNode>();
+    s.push(root.left);
+    s.push(root.right);
+    while(!s.isEmpty()){
+        TreeNode r = s.pop();
+        TreeNode l = s.pop();
+        if(l == null && r == null){
+            continue;
+        }
+        if(l == null || r == null){
+            return false;
+        }
+        if(l.val != r.val){
+            return false;
+        }
+        else{
+            s.push(l.left);
+            s.push(r.right);
+            s.push(r.left);
+            s.push(l.right);
+        }
+    }
+    return true;
+}
