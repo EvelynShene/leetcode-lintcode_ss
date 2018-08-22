@@ -26,7 +26,7 @@
  * }
  */
 
-//My Method:
+//My Method: BFS - O(n) time and space complextiy (每个节点都是进队出队一次)
 public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
     List<List<Integer>> res = new ArrayList<List<Integer>>();
     if(root == null){
