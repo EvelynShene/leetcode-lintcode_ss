@@ -10,6 +10,8 @@
  *                            -3   9
  *                            /   /
  *                          -10  5
+ *
+ *     Note: 注意题目要的是Binary Search Tree!!
  */
 
 /**
