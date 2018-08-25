@@ -36,6 +36,7 @@ public class Codec {
         if(root == null){
             return null;
         }
+        //list l 这段代码的目的是为了求root中节点的数目，这样在序列化时，就可以提前结束，省略q结尾部分的所有null节点
         List<TreeNode> l = new ArrayList<TreeNode>();
         l.add(root);
         int index = 0;
