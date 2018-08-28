@@ -72,3 +72,7 @@
     nodes.get(i).val = nodes.get(j).val;
     nodes.get(j).val = tmp;       
 }
+
+/* Follow up: https://leetcode.com/problems/recover-binary-search-tree/discuss/32559/Detail-Explain-about-How-Morris-Traversal-Finds-two-Incorrect-Pointer
+ *            http://www.cnblogs.com/AnnieKim/archive/2013/06/15/morristraversal.html
+ */
