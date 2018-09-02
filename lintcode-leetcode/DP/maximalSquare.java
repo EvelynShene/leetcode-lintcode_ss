@@ -10,7 +10,7 @@
  *               Output: 4
  */
  
- //Method 1: O(n^3) time and O(n^2) complexity [AC in leetcode but TLE in lintcode]
+ //Method 1: O((nm)^2) time and O(nm) complexity [AC in leetcode but TLE in lintcode]
  class Solution {
     public int maximalSquare(char[][] matrix) {
         if(matrix == null || matrix.length == 0){
@@ -95,4 +95,31 @@ public int findMaxSquare(int[] height){
     return maxArea;
 }
 
-//Method 3: DP
+/* Method 3: DP [Idea from leetcode] - O(mn) time and space complexity
+ *    1）dp[i][j] 存以matrix[i][j]为正方形右下角的最大正方形的边长，有：
+ *       dp[i][j] = 1 + min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
+ *    分别以matrix[i-1][j]，matrix[i][j-1]，matrix[i-1][j-1]为右下角的正方形重叠部分加上matrix[i][j] = 1这个角，就能组成
+ *    新的最大正方形。
+ *    2）最大面积在遍历时就更新
+ */
+public int maxSquare(int[][] matrix) {
+    if(matrix == null || matrix.length == 0){
+        return 0;
+    }
+    int m = matrix.length;
+    int n = matrix[0].length;
+    //dp[i][j] stores the side length of maximum square whose bottom right corner is matrix[i-1][j-1]
+    int[][] dp = new int[m+1][n+1];
+    int max_square = 0;
+    for(int i = 1; i <= m; i++){
+        for(int j = 1; j <= n; j++){
+            if(matrix[i-1][j-1] == 1){
+                dp[i][j] = 1 + Math.min(dp[i - 1][j], Math.min(dp[i][j - 1], dp[i - 1][j - 1]));
+                if(max_square < dp[i][j] * dp[i][j]){
+                    max_square = dp[i][j] * dp[i][j];
+                }
+            }
+        }
+    }
+    return max_square;
+}
