@@ -41,5 +41,29 @@
     return head;
  }
  
- //Method 2:
- 
+ /* Method 2: O(n) time and space complexity - one pass
+  *      思路：1) 先从前往后顺序遍历到第n + 1个node, 如果 (n + 1) node 是 null,说明list里只有n个node，那么从后往前逆序,
+  *           第n个node就是head; 删除第一个节点只需直接返回head.next;
+  *           2) 如果不是(n + 1) node 不是 null, 设置pre从head开始，同时向后一步一步移动cur 和 pre指针，当cur == null时，
+  *           pre指向的节点就是从后往前数第n个节点，删除pre并返回head即可.
+  */
+ public ListNode removeNthFromEnd(ListNode head, int n) {
+     ListNode cur = head;
+     int count = 1;
+     while(count <= n){
+         cur = cur.next;
+         count++;
+     }
+     if(cur == null){
+         return head.next;
+     }
+     ListNode pp = head;
+     ListNode pre = head;
+     while(cur != null){
+         cur = cur.next;
+         pp = pre;
+         pre = pre.next;
+     }
+     pp.next = pre.next;      
+     return head;
+ }
