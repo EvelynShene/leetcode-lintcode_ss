@@ -7,7 +7,9 @@
  *      Note: Rotation is not allowed.
  *
  *      Example: Input: [[5,4],[6,4],[6,7],[2,3]] ; Output: 3 
- *               Explanation: The maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
+ *          Explanation: The maximum number of envelopes you can Russian doll is 3 ([2,3] => [5,4] => [6,7]).
+ *
+ *      Follow up: 如果信封是可以旋转的呢？Ans: 例如一个信封是<3,4>，那么把<3,4>、<4,3>都加入，再找最长序列。
  */
  
  /* Method 1: Sort + DP - O(n^2) time and O(n) space complexity [AC in leetcode but TLE in lintcode]
