@@ -39,10 +39,10 @@
     return res;
  }
  
- /* Method 2:
+ /* Method 2: O(n + k) time complexity
   *     思路：每次遇到一个 update，把 arr[start] 加上 value，arr[end + 1] 减去 value；最后遍历一遍，每个元素是自身与前一个元素的和。
   *       比如 [1, 3, 2]: 我们就把原数组变成 [0, 2, 0, 0, -2]。这样最后构建数组的时候，即为：
-  *               newArr【i】= newArr[i - 1] + arr【i】 
+  *               newArr[i]= newArr[i - 1] + arr[i] 
   *       又因为都是线性叠加的，所以多个 updates 可以叠加。
   */
  public int[] getModifiedArray(int length, int[][] updates) {
