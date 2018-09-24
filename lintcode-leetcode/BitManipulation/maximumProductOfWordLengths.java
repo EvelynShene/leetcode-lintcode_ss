@@ -12,7 +12,8 @@
  */
  
  /* Method:
-  *    都是小写字母组成的字符串，所以可以用32为整型(int)的 0-25bit表示字母 a-z。
+  *     都是小写字母组成的字符串，所以可以用32为整型(int)的后26位来对应26个字母a-z，若为1，说明该对应位置的字母出现过，
+  *  那么每个单词的都可由一个int数字表示，两个单词没有共同字母的条件是这两个int数想与为0。
   */
  public int maxProduct(String[] words) {
     if(words == null || words.length < 2){
