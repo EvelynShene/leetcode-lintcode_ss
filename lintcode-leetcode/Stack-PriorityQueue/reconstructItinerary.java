@@ -85,3 +85,29 @@
     }
 }
  
+//Method 2: Find Eulerian path
+class Solution {
+    public List<String> findItinerary(String[][] tickets) {
+        List<String> res = new ArrayList<String>();
+        if(tickets == null || tickets.length == 0){
+            return res;
+        }
+        Map<String, PriorityQueue<String>> map = new HashMap<String, PriorityQueue<String>>();
+        for(int i = 0; i < tickets.length; i++){
+            if(!map.containsKey(tickets[i][0])){
+                PriorityQueue<String> q = new PriorityQueue<String>();
+                map.put(tickets[i][0], q);
+            }
+            map.get(tickets[i][0]).add(tickets[i][1]);
+        }
+        dfs(res, map, "JFK");
+        return res;
+    }
+    
+    public void dfs(List<String> res, Map<String, PriorityQueue<String>> map, String airport){
+        while(map.containsKey(airport) && !map.get(airport).isEmpty()){
+            dfs(res, map, map.get(airport).poll());
+        }
+        res.add(0, airport);
+    }   
+}
