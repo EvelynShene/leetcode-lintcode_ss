@@ -85,3 +85,17 @@ public List<Integer> grayCode(int n) {
     }
     return res;
 }
+
+/* Method 3: 二进制转格雷码方法
+ *     我们要求第i个格雷码，就先将i对应的二进制右移一位，然后与i本身异或，这样得到的结果就是要求的第i个格雷码（i =0,1,2, ...）                          
+ *     eg: 求第2个格雷码， 2 = 010 -> grey code = 010 ^ 001 = 011 = 3
+ */                
+public List<Integer> grayCode(int n) {
+    List<Integer> res = new ArrayList<>();
+    res.add(0);
+    int num = (int) Math.pow(2, n);
+    for(int i = 1; i < num; i++){
+        res.add(i ^ (i >> 1));
+    }
+    return res;
+}
