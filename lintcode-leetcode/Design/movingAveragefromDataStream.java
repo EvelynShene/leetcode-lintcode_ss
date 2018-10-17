@@ -15,7 +15,7 @@
  * double param_1 = obj.next(val);
  */
  
-//Method 1: Use ArrayList [more efficient than method 2]
+//Method 1: Use ArrayList
 class MovingAverage {
 
     /** Initialize your data structure here. */
@@ -48,12 +48,12 @@ class MovingAverage {
     }
 }
 
-//Method 2: Use Queue/Deque
+//Method 2: Use Queue
 class MovingAverage {
 
     /** Initialize your data structure here. */
     int window_size; 
-    Deque<Integer> q;
+    Queue<Integer> q;
     int sum;
     
     public MovingAverage(int size) {
@@ -65,9 +65,9 @@ class MovingAverage {
     public double next(int val) {
         sum += val;
         if(q.size() == window_size){
-            sum -= q.removeFirst();
+            sum -= q.poll();
         }
-        q.addLast(val);
+        q.offer(val);
         return (double) sum / q.size();
     }
 }
