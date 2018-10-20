@@ -78,3 +78,81 @@
         timestamp++;
     }
 }
+
+//Method 2: Linked List + HashMap
+class LRUCache {
+    class Node{
+        int key;
+        int value;
+        Node next;
+        Node pre;
+        
+        public Node(int key, int value){
+            this.key = key;
+            this.value = value;
+            next = null;
+            pre = null;
+        }
+    }
+    
+    Node head;
+    Node tail;
+    Map<Integer, Node> map; // map<key, node/pointer to node>
+    int capacity;
+    int size;
+    
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head.next = tail;
+        tail.pre = head;
+        map = new HashMap<Integer, Node>();
+        size = 0;
+    }
+    
+    public int get(int key) {
+        if(!map.containsKey(key)){
+            return -1;
+        }
+        Node node = map.get(key);
+        node.pre.next = node.next;
+        node.next.pre = node.pre;
+        node.pre = head;
+        node.next = head.next;
+        head.next.pre = node;
+        head.next = node;
+        
+        return node.value;
+    }
+    
+    public void put(int key, int value) {
+        if(map.containsKey(key)){
+            Node node = map.get(key);
+            node.value = value;
+            node.pre.next = node.next;
+            node.next.pre = node.pre;
+            node.pre = head;
+            node.next = head.next;
+            head.next.pre = node;
+            head.next = node;
+        }
+        else{
+            if(size == capacity){// reach full size
+                //delete the last node;
+                Node lastNode = tail.pre;
+                lastNode.pre.next = tail;
+                tail.pre = lastNode.pre;
+                map.remove(lastNode.key);
+                size--;
+            }
+            Node newNode = new Node(key, value);
+            map.put(key, newNode);
+            newNode.pre = head;
+            newNode.next = head.next;
+            head.next.pre = newNode;
+            head.next = newNode;
+            size++;
+        }
+    }
+}
