@@ -44,3 +44,48 @@
         return sum[j + 1] - sum[i];
     }
 }
+
+//Method 2: Binary Index Tree - O(nlogn) pre-computation; and O(logn) per query
+class NumArray {
+    int[] tree;
+    int[] numbers;
+    
+    public NumArray(int[] nums) {
+        int n = nums.length;
+        numbers = new int[n];
+        tree = new int[n + 1];
+        
+        for(int i = 0; i < n; i++){
+            update(i, nums[i]);
+        }
+    }
+    
+    public void update(int index, int val) {
+        int diff = val - numbers[index];
+        numbers[index] = val;
+        
+        for(int i = index + 1; i <= numbers.length; i = i + lowBit(i)){
+        // i = i + lowBit(i) -> is to get the next node of node(i) in the binary index tree
+            tree[i] += diff;
+        }
+    }
+    
+    public int sumRange(int i, int j) {
+        // find sumRange(0, i - 1) and sumRange(0, j)
+        // then sumRange(i,j) = sumRange(0,j) - sumRange(0,i - 1)
+        return totalSum(j) - totalSum(i - 1);
+    }
+    
+    public int totalSum(int index){
+        int total = 0;
+        for(int i = index + 1; i > 0; i = i - lowBit(i)){
+            // i = i + lowBit(i) -> is to get the parent node of node(i) in the binary index tree
+            total += tree[i];
+        }
+        return total;
+    }
+    
+    public int lowBit(int x){
+        return (x & (-x));
+    }
+}
