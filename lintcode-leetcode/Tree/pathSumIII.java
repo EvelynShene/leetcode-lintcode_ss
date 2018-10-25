@@ -29,7 +29,7 @@
  * }
  */
  
-//Method:
+//Method: 要注意Sum的连续性问题！递归时的sum是否是已经加和了父节点，如果是，子节点必须连续才能组成path
 class Solution {
     public int pathSum(TreeNode root, int sum) {
         return getPathSum(root, sum, false);
