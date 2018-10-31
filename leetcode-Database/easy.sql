@@ -37,7 +37,7 @@
 175.Combine Two Tables
 # "for each" join
 
-  select FirstName, LastName, City, State
+  select distinct FirstName, LastName, City, State
   from Person left join Address
   on Person.PersonId = Address.PersonId
 
@@ -85,3 +85,10 @@
   from(select max(Salary) as maxs
   from Employee) as M, Employee E
   where E.Salary < maxs
+
+# Method 2:
+  select max(E.Salary) as SecondHighestSalary
+  from Employee as E
+  where Salary != (select max(Salary) as maxs
+  from Employee)
+                                                                      
