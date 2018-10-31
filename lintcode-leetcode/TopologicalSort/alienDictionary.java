@@ -99,11 +99,80 @@
     }
     
     public int findDiffPos(String s1, String s2){
-        if(s1.contains(s2) || s2.contains(s1)){
-            return -1;
-        }
         int len = Math.min(s1.length(), s2.length());
         for(int i = 0; i < len; i++){
+            if(s1.charAt(i) != s2.charAt(i)){
+                return i;
+            }
+        }
+        return -1;
+    }
+}
+
+//leetcode
+class Solution {
+    public String alienOrder(String[] words) {
+        if(words == null || words.length == 0){
+            return "";
+        }
+        int[] letter = new int[26];
+        int letter_num = 0;
+        for(String w: words){
+            for(int i = 0; i < w.length(); i++){
+                if(letter[w.charAt(i) - 'a'] == 0){
+                    letter[w.charAt(i) - 'a'] = 1;
+                    letter_num++;
+                }
+            }
+        }
+        
+        List[] letter_order = new ArrayList[26];
+        for(int i = 0; i < 26; i++){
+            letter_order[i] = new ArrayList<Integer>();
+        }
+        int[] indegree = new int[26];
+        
+        for(int i = 0; i < words.length - 1; i++){
+            int index = findDifferentPosition(words[i], words[i + 1]);
+            if(index != -1){
+                int from = words[i].charAt(index) - 'a';
+                int to = words[i + 1].charAt(index) - 'a';
+                letter_order[from].add(to);
+                indegree[to]++;
+            }
+        }
+        
+        PriorityQueue<Integer> min_heap = new PriorityQueue<Integer>();
+        for(int i = 0; i < 26; i++){
+            if(letter[i] == 1 && indegree[i] == 0){
+                min_heap.offer(i);
+            }
+        }
+        
+        int count = 0;
+        StringBuilder order = new StringBuilder();
+        while(!min_heap.isEmpty()){
+            int index = min_heap.poll();
+            order.append("" + (char)('a' + index));
+            count++;
+            List<Integer> list = letter_order[index];
+            for(int i = 0; i < list.size(); i++){
+                indegree[list.get(i)]--;
+                if(indegree[list.get(i)] == 0){
+                    min_heap.offer(list.get(i));
+                }
+            }
+        }
+        
+        if(count == letter_num){
+            return order.toString();
+        }
+        return "";
+    }
+    
+    public int findDifferentPosition(String s1, String s2){
+        int minLen = Math.min(s1.length(), s2.length());
+        for(int i = 0; i < minLen; i++){
             if(s1.charAt(i) != s2.charAt(i)){
                 return i;
             }
