@@ -51,6 +51,8 @@
   /** Method 2: Use TreeSet - O(n) time and space complexity
    *  Idea: 与上述方法是一致的思路，只是利用TreeSet本身的数组结构（有序的集合），
    *        每次遍历时，遍历的数都排序好了，用函数higher()和lower()调用得到所需的最大最小值。
+   *         - higher(element): 返回此 set 中严格大于给定元素的最小元素；如果不存在这样的元素，则返回 null。
+   *         - lower(element):  返回此 set 中严格小于给定元素的最大元素；如果不存在这样的元素，则返回 null。
    */
   public int kEmptySlots(int[] flowers, int k) {
       // Write your code here
